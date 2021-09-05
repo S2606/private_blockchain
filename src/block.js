@@ -72,6 +72,9 @@ class Block {
         return new Promise((resolve, reject) => {
             let decodedData = hex2ascii(self.body);
             let decodedJSONObject = JSON.parse(decodedData);
+            if('owner' in self)
+                decodedJSONObject.owner = self.owner
+
             if(self.height > 0){
                 resolve(decodedJSONObject);
             } else {

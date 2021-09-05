@@ -191,7 +191,7 @@ class Blockchain {
             if(staredBlocks.length===0) {
                 reject(new Error('Err 404: Address Not Found'));
             }
-            stars = staredBlocks.map(block => block.getBData());
+            stars = Promise.all(staredBlocks.map(block => block.getBData()));
             if(stars){
                 resolve(stars);
             } else {
