@@ -1,6 +1,5 @@
 /**
  *          BlockchainController
- *       (Do not change this code)
  * 
  * This class expose the endpoints that the client applications will use to interact with the 
  * Blockchain dataset
