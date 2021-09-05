@@ -133,7 +133,8 @@ class Blockchain {
                 reject(new Error('message is not verified'));
             }
 
-            let block = new BlockClass.Block(star);
+            let blockData = {star};
+            let block = new BlockClass.Block(blockData);
             block.owner = address;
             let addedBlock = await self._addBlock(block);  
             
