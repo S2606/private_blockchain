@@ -69,13 +69,13 @@ class Blockchain {
             let time = new Date().getTime().toString().slice(0,-3);
             let previousBlock = await this.getBlockByHeight(chainLength-1);
             let previousBlockHash = previousBlock != null ? previousBlock.hash: null;
-            let currentBlockHash = SHA256(JSON.stringify(block)).toString();
 
 
             block.time = time;
-            block.hash = currentBlockHash;
             block.previousBlockHash = previousBlockHash;
             block.height = chainLength;
+            let currentBlockHash = SHA256(JSON.stringify(block)).toString();
+            block.hash = currentBlockHash;
             
             let blockValid = (block.height === self.chain.length) && (block.hash.length===64);
             if(blockValid){
@@ -126,11 +126,13 @@ class Blockchain {
             let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
             if((currentTime - messageTime)>=300){
                 reject(new Error('more than 5 mins'));
+                return;
             }
 
             let verifyMessage = bitcoinMessage.verify(message, address, signature);
             if(!verifyMessage){
                 reject(new Error('message is not verified'));
+                return;
             }
 
             let blockData = {star};
@@ -226,6 +228,7 @@ class Blockchain {
 
             if(errorLog > 0){
                 reject(errorLog);
+                return;
             } else {
                 resolve('no error found');
             }
